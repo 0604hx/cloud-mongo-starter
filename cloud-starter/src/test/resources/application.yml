@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      database: test-nerve
+      host: localhost
+      port: 27017
+
+logging:
+  level:
+    org.nerve: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+zeus:
+  log:
+    interval: 5000
