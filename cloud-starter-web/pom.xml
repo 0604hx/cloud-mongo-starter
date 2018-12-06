@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>cloud-starter</artifactId>
+        <artifactId>cloud-starter-parent</artifactId>
         <groupId>org.nerve</groupId>
         <version>0.0.1</version>
         <relativePath>../cloud-starter-parent/pom.xml</relativePath>
@@ -12,5 +12,20 @@
 
     <artifactId>cloud-starter-web</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.nerve</groupId>
+            <artifactId>cloud-starter-data</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+    </dependencies>
 </project>

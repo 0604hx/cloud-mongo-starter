@@ -12,7 +12,6 @@ import org.nerve.exception.Exceptions;
 import org.nerve.exception.ServiceException;
 import org.nerve.repo.CommonRepo;
 import org.nerve.repo.Pagination;
-import org.nerve.sys.L;
 import org.nerve.util.GenericItem;
 import org.nerve.utils.ConvertUtils;
 import org.nerve.utils.reflection.ReflectionUtils;
@@ -36,6 +35,9 @@ public class CommonServiceImpl<T extends ID, R extends CommonRepo<T,String>> ext
 
 	@Autowired
 	protected R repo;
+
+	@Autowired
+	protected CommonLogService logSaveService;
 
 	@Autowired(required = false)
 	protected AuthenticProvider authProvider;
@@ -92,7 +94,7 @@ public class CommonServiceImpl<T extends ID, R extends CommonRepo<T,String>> ext
             }else
                 repo.delete(t);
 
-            L.log(LogType.DELETE,"删除 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
+            logSaveService.insert(LogType.DELETE,"删除 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
             log.info("删除对象 {} {}", nameOfDomain(), textForEntity(t));
             onAfterDelete(t);
         }
@@ -164,7 +166,7 @@ public class CommonServiceImpl<T extends ID, R extends CommonRepo<T,String>> ext
 					((UpdateDateEntity) oldEntity).setUpdateDate(new Date());
 
 				repo.save(oldEntity);
-                L.log(LogType.UPDATE,"更新对象 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
+                logSaveService.insert(LogType.UPDATE,"更新对象 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
 				log.info("更新对象 {} {}", nameOfDomain(), textForEntity(t));
 
 				onAfterSave(oldEntity, false);
@@ -176,7 +178,7 @@ public class CommonServiceImpl<T extends ID, R extends CommonRepo<T,String>> ext
 
 			if(onBeforeSave(t)){
 				repo.save(t);
-                L.log(LogType.CREATE,"保存对象 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
+                logSaveService.insert(LogType.CREATE,"保存对象 "+nameOfDomain()+" "+textForEntity(t), t, authProvider.get());
 				log.info("保存对象 {} {}", nameOfDomain(), textForEntity(t));
 
 				onAfterSave(t, true);

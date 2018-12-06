@@ -1,9 +1,9 @@
 server:
-  port: 8900
+  port: 8601
 
 spring:
   application:
-    name: DISS-CONFIG
+    name: configserver
   profiles:
     active: native
   cloud:
@@ -15,4 +15,12 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8901/eureka/
+      defaultZone: http://localhost:8600/eureka/
+
+# 配置默认的授权账密
+security:
+  basic:
+    enable: true
+  user:
+    name: nerve
+    password: ironman.

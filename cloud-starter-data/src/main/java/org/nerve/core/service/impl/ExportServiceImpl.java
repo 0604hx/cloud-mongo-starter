@@ -12,8 +12,8 @@ import org.nerve.core.service.ExportService;
 import org.nerve.domain.IdEntity;
 import org.nerve.enums.LogType;
 import org.nerve.exception.Exceptions;
+import org.nerve.service.CommonLogService;
 import org.nerve.service.CommonServiceImpl;
-import org.nerve.sys.L;
 import org.nerve.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,12 +44,17 @@ public class ExportServiceImpl extends CommonServiceImpl<Export,ExportRepo> impl
 	@Autowired
     MongoTemplate mongoTemplate;
 
+	@Autowired
+	CommonLogService commonLogS;
 
 	/**
 	 * 默认的保存路径
 	 */
-	@Value("${zeus.export.dir:_export}")
+	@Value("${nerve.export.dir:_export}")
 	String exportDir;
+
+	@Value(("${nerve.export.log-after-save:true"))
+	private boolean logAfterSave = true;
 
 	protected final String ENCODING = "utf-8";
 
@@ -227,7 +232,7 @@ public class ExportServiceImpl extends CommonServiceImpl<Export,ExportRepo> impl
 		);
 		log.info(msg);
 
-		L.log(LogType.EXPORT, msg, export, authProvider!=null?authProvider.get():null);
+		commonLogS.insert(LogType.EXPORT, msg, export, authProvider!=null?authProvider.get():null);
 	}
 
 	/**
