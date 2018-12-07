@@ -14,6 +14,12 @@
 
 [spring cloud实战与思考（一） spring config全局配置方案设计](https://www.cnblogs.com/standup/p/9052593.html)
 
+#### 权限相关
+
+[Spring Cloud下基于OAUTH2认证授权的实现](https://www.cnblogs.com/bigben0123/p/9207825.html)
+
+[单点登录之CAS原理和实现(Spring Cloud）](https://blog.csdn.net/zhaoenweiex/article/details/80658913)
+
 ### LOGS
 
 #### v0.0.1
